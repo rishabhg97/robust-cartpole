@@ -1,0 +1,1 @@
+This folder implements modified version of the CartPole environment from OpenAI Gym. 

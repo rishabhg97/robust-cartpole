@@ -1,0 +1,326 @@
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 243)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+acition is [0]
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+acition is [0]
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+acition is 1
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+acition is 1
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+acition is 1
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 0
+acition is 1
+acition is 1
+acition is 0
+acition is 1
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/ppo-cartpole.zip
+Q matrix initialised with size :(243, 15)
+Loading pretrained PPO Model from: ./models/ppo/
+Training PPO Model and saving: 
+Q matrix initialised with size :(243, 15)
+Training PPO Model and saving: 
+Q matrix initialised with size :(243, 15)
+Training PPO Model and saving: 
+Q matrix initialised with size :(243, 15)
+Training PPO Model and saving: 
+Q matrix initialised with size :(243, 15)
+Training PPO Model and saving: 
+Training PPO Model and saving: 
+Q matrix initialised with size :(243, 15)
+Training PPO Model and saving: 
+Q matrix initialised with size :(243, 15)
+Training PPO Model and saving: 

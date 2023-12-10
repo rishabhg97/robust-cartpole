@@ -1,0 +1,237 @@
+Training PPO Model and saving: ppo_agent.zip
+Using cpu device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 22       |
+|    ep_rew_mean     | 22       |
+| time/              |          |
+|    fps             | 6662     |
+|    iterations      | 1        |
+|    time_elapsed    | 0        |
+|    total_timesteps | 2048     |
+---------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 24.6        |
+|    ep_rew_mean          | 24.6        |
+| time/                   |             |
+|    fps                  | 4504        |
+|    iterations           | 2           |
+|    time_elapsed         | 0           |
+|    total_timesteps      | 4096        |
+| train/                  |             |
+|    approx_kl            | 0.008349779 |
+|    clip_fraction        | 0.0965      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.686      |
+|    explained_variance   | 0.00935     |
+|    learning_rate        | 0.0003      |
+|    loss                 | 8.36        |
+|    n_updates            | 10          |
+|    policy_gradient_loss | -0.0138     |
+|    value_loss           | 52.8        |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 32.1        |
+|    ep_rew_mean          | 32.1        |
+| time/                   |             |
+|    fps                  | 4281        |
+|    iterations           | 3           |
+|    time_elapsed         | 1           |
+|    total_timesteps      | 6144        |
+| train/                  |             |
+|    approx_kl            | 0.011799855 |
+|    clip_fraction        | 0.0871      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.664      |
+|    explained_variance   | 0.0738      |
+|    learning_rate        | 0.0003      |
+|    loss                 | 11.6        |
+|    n_updates            | 20          |
+|    policy_gradient_loss | -0.0223     |
+|    value_loss           | 31.3        |
+-----------------------------------------
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 42.8        |
+|    ep_rew_mean          | 42.8        |
+| time/                   |             |
+|    fps                  | 4188        |
+|    iterations           | 4           |
+|    time_elapsed         | 1           |
+|    total_timesteps      | 8192        |
+| train/                  |             |
+|    approx_kl            | 0.008947486 |
+|    clip_fraction        | 0.113       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.629      |
+|    explained_variance   | 0.252       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 18.5        |
+|    n_updates            | 30          |
+|    policy_gradient_loss | -0.0226     |
+|    value_loss           | 48.7        |
+-----------------------------------------
+------------------------------------------
+| rollout/                |              |
+|    ep_len_mean          | 54.5         |
+|    ep_rew_mean          | 54.5         |
+| time/                   |              |
+|    fps                  | 4128         |
+|    iterations           | 5            |
+|    time_elapsed         | 2            |
+|    total_timesteps      | 10240        |
+| train/                  |              |
+|    approx_kl            | 0.0086107645 |
+|    clip_fraction        | 0.0924       |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -0.602       |
+|    explained_variance   | 0.341        |
+|    learning_rate        | 0.0003       |
+|    loss                 | 17.6         |
+|    n_updates            | 40           |
+|    policy_gradient_loss | -0.0203      |
+|    value_loss           | 55.6         |
+------------------------------------------
+/Users/rishabhgarg/.pyenv/versions/3.8.18/lib/python3.8/site-packages/stable_baselines3/common/evaluation.py:67: UserWarning: Evaluation environment is not wrapped with a ``Monitor`` wrapper. This may result in reporting modified episode lengths and rewards, if other wrappers happen to modify these. Consider wrapping environment first with ``Monitor`` wrapper.
+  warnings.warn(
+Trained PPO agent's returns: 379.45 (+/-109.36611678211858)
+Q-table shape: (243, 15)
+/Users/rishabhgarg/.pyenv/versions/3.8.18/lib/python3.8/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.get_params to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.get_params` for environment variables or `env.get_wrapper_attr('get_params')` that will search the reminding wrappers.
+  logger.warn(
+/Users/rishabhgarg/.pyenv/versions/3.8.18/lib/python3.8/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.set_param_ranges to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.set_param_ranges` for environment variables or `env.get_wrapper_attr('set_param_ranges')` that will search the reminding wrappers.
+  logger.warn(
+  0%|                                                                                                                                       | 0/1000 [00:00<?, ?it/s]/Users/rishabhgarg/.pyenv/versions/3.8.18/lib/python3.8/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.modify_params to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.modify_params` for environment variables or `env.get_wrapper_attr('modify_params')` that will search the reminding wrappers.
+  logger.warn(
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
