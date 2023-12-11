@@ -99,7 +99,8 @@ import scienceplots
 plt.style.use('science')
 
 # Load the Q-table
-q_table_path = './logs/qtable_999.npy'
+log_dir = './stored_rewards_logs/'
+q_table_path = log_dir + '/qtable_99999.npy'
 Q = np.load(q_table_path)
 
 # x_ticks = ('$g_{min}$', '$g_{orig}$', '$g_{max}$', '$m_{cart,min}$', '$m_{cart,orig}$', '$m_{cart,max}$', '$m_{pole,min}$', '$m_{pole,orig}$', '$m_{pole,max}$', '$l_{min}$', '$l_{orig}$', '$l_{max}$', '$F_{mag,min}$', '$F_{mag,orig}$', '$F_{mag,max}$')
@@ -167,7 +168,7 @@ fig.colorbar(im1, ax=ax_q)
 
 # Save the figure
 plt.tight_layout()
-plt.savefig('./logs/q_and_state_table.pdf', bbox_inches='tight')
+plt.savefig(log_dir +'q_and_state_table.pdf', bbox_inches='tight')
 
 # Show the plot
 plt.show()

@@ -25,3 +25,4 @@ config: {'log': True, 'seed': 42, 'log_dir': './logs', 'save_dir': './models', '
 2023-12-10 18:21:26,612 INFO    MainThread:33499 [wandb_run.py:_redirect():2153] Wrapping output streams.
 2023-12-10 18:21:26,612 INFO    MainThread:33499 [wandb_run.py:_redirect():2178] Redirects installed.
 2023-12-10 18:21:26,612 INFO    MainThread:33499 [wandb_init.py:init():841] run started, returning control to user process
+2023-12-10 18:49:00,673 WARNING MsgRouterThr:33499 [router.py:message_loop():77] message_loop has been closed
