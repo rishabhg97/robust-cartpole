@@ -34,4 +34,8 @@ To train an environment adversary, run the following command:
 python main.py --log --seed 42 --log_dir ./logs --save_dir ./models --adversary_episode_length 20 --num_eval_episodes 25 --learning_rate 0.1 --discount_factor 0.99 --epsilon 0.05 --num_q_learning_episodes 1000 --init_scale 0.01 --ppo_train_steps 10000 --num_policy_eval_episodes 2
 ```
 
-To commit the changes after deleting the unwanted repo.
+To test the trained adversary, run the following command:
+
+```
+python test_adversary.py --log --seed 0 --log_dir ./logs --save_dir ./models --adversary_episode_length 10 --num_eval_episodes 50 --learning_rate 0.1 --discount_factor 0.99 --epsilon 0.05 --num_q_learning_episodes 100 --init_scale 0.01 --rl_agent_train_steps 10000 --num_policy_eval_episodes 10 --rl_agents_zoo ./rl_agents_zoo --adversary_agent_path ./stored_rewards_logs/qtable_99999.npy
+```
