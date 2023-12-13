@@ -233,7 +233,7 @@ def main(args):
             adv_rewards.append(adversary_reward)
 
         # Save the Q-table
-        if (adversary_episode_id + 1) % 1000 == 0:
+        if (adversary_episode_id + 1) % args.save_q_table_freq == 0:
             np.save(args.log_dir + "/qtable_" +
                     str(adversary_episode_id) + ".npy", Q)
 
@@ -243,30 +243,22 @@ if __name__ == "__main__":
         description='Here we train a Q-learning adversary on the rewards stored by running PPO agent on modified versions of the cartpole.')
     parser.add_argument('--log', action='store_true',
                         help='Enable logging to files')
-    parser.add_argument('--seed', type=int, default=42,
-                        help='Random seed for reproducibility')
     parser.add_argument('--log_dir', type=str, default='./stored_rewards_logs/',
-                        help='Directory to save logs')
-    parser.add_argument('--save_dir', type=str, default='./models',
-                        help='Directory to save models')
-    parser.add_argument('--adversary_episode_length', type=int, default=1000,
+                        help='Directory to save Q-tables')
+    parser.add_argument('--save_q_table_freq', type=int, default=1000,
+                        help='Frequency with which to save Q-tables')
+    parser.add_argument('--adversary_episode_length', type=int, default=10,
                         help='Maximum number of steps in an adversary episode')
-    parser.add_argument('--num_eval_episodes', type=int, default=25,
-                        help='Number of episodes to evaluate the adversary')
     parser.add_argument('--learning_rate', type=float, default=0.1,
                         help='Learning rate for Q-learning')
     parser.add_argument('--discount_factor', type=float, default=0.99,
                         help='Discount factor for Q-learning')
     parser.add_argument('--epsilon', type=float, default=0.05,
                         help='Exploration rate for Q-learning')
-    parser.add_argument('--num_q_learning_episodes', type=int, default=100,
+    parser.add_argument('--num_q_learning_episodes', type=int, default=100000,
                         help='Number of episodes for Q-learning')
     parser.add_argument('--init_scale', type=float, default=0.01,
                         help='Initial scale for Q-table')
-    parser.add_argument('--ppo_train_steps', type=int, default=10000,
-                        help='Number of training steps for PPO')
-    parser.add_argument('--num_policy_eval_episodes', type=int, default=10,
-                        help='Number of episodes to evaluate the PPO agent')
     parser.add_argument('--stored_rewards_file', type=str,
                         default='every_state_returns_ppo.npy',)
     args = parser.parse_args()

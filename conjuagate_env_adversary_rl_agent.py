@@ -3,7 +3,7 @@
 
 import time
 
-import openai_cartpole # Required for using the modified cartpole environment
+import openai_cartpole  # Required for using the modified cartpole environment
 import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
@@ -39,6 +39,8 @@ from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.utils import explained_variance
 from stable_baselines3.common.utils import safe_mean
 from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback
+from wandb.integration.sb3 import WandbCallback
+
 
 from stable_baselines3.common.vec_env import DummyVecEnv
 
@@ -46,7 +48,6 @@ import argparse
 import numpy as np
 
 # Plotting libraries
-
 
 
 import wandb
@@ -171,140 +172,6 @@ class AugmentedPPO(PPO):
 
         return env
 
-    def train(self) -> None:
-        """
-        Update policy using the currently gathered rollout buffer.
-        """
-        # Switch to train mode (this affects batch norm / dropout)
-        self.policy.set_training_mode(True)
-        # Update optimizer learning rate
-        self._update_learning_rate(self.policy.optimizer)
-        # Compute current clip range
-        clip_range = self.clip_range(
-            self._current_progress_remaining)  # type: ignore[operator]
-        # Optional: clip range for the value function
-        if self.clip_range_vf is not None:
-            clip_range_vf = self.clip_range_vf(
-                self._current_progress_remaining)  # type: ignore[operator]
-
-        entropy_losses = []
-        pg_losses, value_losses = [], []
-        clip_fractions = []
-
-        continue_training = True
-        # train for n_epochs epochs
-        for epoch in range(self.n_epochs):
-            approx_kl_divs = []
-            # Do a complete pass on the rollout buffer
-            for rollout_data in self.rollout_buffer.get(self.batch_size):
-                actions = rollout_data.actions
-                if isinstance(self.action_space, spaces.Discrete):
-                    # Convert discrete action from float to long
-                    actions = rollout_data.actions.long().flatten()
-
-                # Re-sample the noise matrix because the log_std has changed
-                if self.use_sde:
-                    self.policy.reset_noise(self.batch_size)
-
-                values, log_prob, entropy = self.policy.evaluate_actions(
-                    rollout_data.observations, actions)
-                values = values.flatten()
-                # Normalize advantage
-                advantages = rollout_data.advantages
-                # Normalization does not make sense if mini batchsize == 1, see GH issue #325
-                if self.normalize_advantage and len(advantages) > 1:
-                    advantages = (advantages - advantages.mean()
-                                  ) / (advantages.std() + 1e-8)
-
-                # ratio between old and new policy, should be one at the first iteration
-                ratio = torch.exp(log_prob - rollout_data.old_log_prob)
-
-                # clipped surrogate loss
-                policy_loss_1 = advantages * ratio
-                policy_loss_2 = advantages * \
-                    torch.clamp(ratio, 1 - clip_range, 1 + clip_range)
-                policy_loss = -torch.min(policy_loss_1, policy_loss_2).mean()
-
-                # Logging
-                pg_losses.append(policy_loss.item())
-                clip_fraction = torch.mean(
-                    (torch.abs(ratio - 1) > clip_range).float()).item()
-                clip_fractions.append(clip_fraction)
-
-                if self.clip_range_vf is None:
-                    # No clipping
-                    values_pred = values
-                else:
-                    # Clip the difference between old and new value
-                    # NOTE: this depends on the reward scaling
-                    values_pred = rollout_data.old_values + torch.clamp(
-                        values - rollout_data.old_values, -clip_range_vf, clip_range_vf
-                    )
-                # Value loss using the TD(gae_lambda) target
-                value_loss = F.mse_loss(rollout_data.returns, values_pred)
-                value_losses.append(value_loss.item())
-
-                # Entropy loss favor exploration
-                if entropy is None:
-                    # Approximate entropy when no analytical form
-                    entropy_loss = -torch.mean(-log_prob)
-                else:
-                    entropy_loss = -torch.mean(entropy)
-
-                entropy_losses.append(entropy_loss.item())
-
-                loss = policy_loss + self.ent_coef * entropy_loss + self.vf_coef * value_loss
-
-                # Calculate approximate form of reverse KL Divergence for early stopping
-                # see issue #417: https://github.com/DLR-RM/stable-baselines3/issues/417
-                # and discussion in PR #419: https://github.com/DLR-RM/stable-baselines3/pull/419
-                # and Schulman blog: http://joschu.net/blog/kl-approx.html
-                with torch.no_grad():
-                    log_ratio = log_prob - rollout_data.old_log_prob
-                    approx_kl_div = torch.mean(
-                        (torch.exp(log_ratio) - 1) - log_ratio).cpu().numpy()
-                    approx_kl_divs.append(approx_kl_div)
-
-                if self.target_kl is not None and approx_kl_div > 1.5 * self.target_kl:
-                    continue_training = False
-                    if self.verbose >= 1:
-                        print(
-                            f"Early stopping at step {epoch} due to reaching max kl: {approx_kl_div:.2f}")
-                    break
-
-                # Optimization step
-                self.policy.optimizer.zero_grad()
-                loss.backward()
-                # Clip grad norm
-                torch.nn.utils.clip_grad_norm_(
-                    self.policy.parameters(), self.max_grad_norm)
-                self.policy.optimizer.step()
-
-            self._n_updates += 1
-            if not continue_training:
-                break
-
-        explained_var = explained_variance(
-            self.rollout_buffer.values.flatten(), self.rollout_buffer.returns.flatten())
-
-        # Logs
-        self.logger.record("train/entropy_loss", np.mean(entropy_losses))
-        self.logger.record("train/policy_gradient_loss", np.mean(pg_losses))
-        self.logger.record("train/value_loss", np.mean(value_losses))
-        self.logger.record("train/approx_kl", np.mean(approx_kl_divs))
-        self.logger.record("train/clip_fraction", np.mean(clip_fractions))
-        self.logger.record("train/loss", loss.item())
-        self.logger.record("train/explained_variance", explained_var)
-        if hasattr(self.policy, "log_std"):
-            self.logger.record(
-                "train/std", torch.exp(self.policy.log_std).mean().item())
-
-        self.logger.record("train/n_updates",
-                           self._n_updates, exclude="tensorboard")
-        self.logger.record("train/clip_range", clip_range)
-        if self.clip_range_vf is not None:
-            self.logger.record("train/clip_range_vf", clip_range_vf)
-
     def learn(
         self,
         total_timesteps,
@@ -426,8 +293,12 @@ class ExtendDummyVecEnv(DummyVecEnv):
 def main(args):
 
     # Initialize wandb
-    if args.log:
-        wandb.init(project="env-robust-ppo", config=args)
+    # if args.log:
+    wandb_run_id = wandb.init(project="env-robust-ppo",
+                config=args,
+                sync_tensorboard=True,  # auto-upload sb3's tensorboard metrics
+                save_code=True,  # optional
+                )
 
     # Create the modified CartPole environment
     env = gym.make('openai_cartpole/ModifiedCartPole-v1')
@@ -482,15 +353,15 @@ def main(args):
         for change_index in range(num_delta_per_variable)
     }
 
-    # Load Q table
+    # Load adversary
     Q = np.load(args.q_table_path)
 
     # Regardless of whether the model already exists, train the ppo agent once again
     print('Training the PPO agent along with the adversary...')
-    ppo_agent = AugmentedPPO("MlpPolicy", env, seed=args.seed, verbose=1)
+    ppo_agent = AugmentedPPO("MlpPolicy", env, seed=args.seed, verbose=1, tensorboard_log=f"{args.log_dir}/{wandb_run_id}")
     ppo_agent.augment_adversary(Q=Q, env=env, obs_space=observation_space, action_space=action_space,
                                 get_action_from_index_map=get_action_from_index_map)
-    ppo_agent.learn(total_timesteps=args.ppo_train_steps)
+    ppo_agent.learn(total_timesteps=args.robust_ppo_num_training_steps, callback=WandbCallback())
     ppo_agent.save(args.save_dir + "/env_robust_ppo_agent")
     env = gym.make('openai_cartpole/ModifiedCartPole-v1')
     env.reset()
@@ -498,7 +369,7 @@ def main(args):
     # Evaluate the trained PPO agent
     print('Evaluating the trained PPO agent on normal environment')
     mean_reward, std_reward = evaluate_policy(
-        ppo_agent, env, n_eval_episodes=args.num_policy_eval)
+        ppo_agent, env, n_eval_episodes=args.num_eval_episodes)
 
     print(
         f"Trained robust PPO agent's returns: {mean_reward} (+/-{std_reward})")
@@ -508,8 +379,6 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(
         description='Train a PPO agent with adversarial environment modifications.')
-    parser.add_argument('--log', action='store_true',
-                        help='Enable logging to files')
     parser.add_argument('--seed', type=int, default=42,
                         help='Random seed for reproducibility')
     parser.add_argument('--log_dir', type=str, default='./conjugate_logs',
@@ -517,14 +386,11 @@ if __name__ == "__main__":
     parser.add_argument('--q_table_path', type=str, default='./stored_rewards_logs/qtable_99999.npy',
                         help='Path to the Q-table')
     parser.add_argument('--save_dir', type=str, default='./models',
-                        help='Directory to save models')
-    parser.add_argument('--adversary_episode_length', type=int, default=1000,
-                        help='Maximum number of steps in an adversary episode')
-    parser.add_argument('--ppo_train_steps', type=int, default=20000,
+                        help='Directory to save the trained robust PPO agent')
+    parser.add_argument('--robust_ppo_num_training_steps', type=int, default=20000,
                         help='Number of training steps for PPO')
-    parser.add_argument('--num_policy_eval', type=int, default=10,
-                        help='Number of episodes to evaluate the PPO agent')
- 
+    parser.add_argument('--num_eval_episodes', type=int, default=10,
+                        help='Number of episodes to evaluate the agent at the end of the training')
 
     args = parser.parse_args()
     main(args)
