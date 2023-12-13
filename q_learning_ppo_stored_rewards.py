@@ -75,28 +75,6 @@ def main(args):
     env = gym.make('openai_cartpole/ModifiedCartPole-v1')
     env.reset()
 
-    # PPO agent
-    # Train a PPO agent on the cartpole with a fixed seed for reproducibility
-    ppo_filename = 'ppo_agent.zip'
-
-    # if os.path.exists(ppo_filename):
-    #     print("Loading pretrained PPO Model from: {}",
-    #           ppo_filename)
-    #     ppo_agent = PPO.load(ppo_filename)
-    # else:
-
-    # Regardless of whether the model already exists, train the ppo agent once again
-    print(f"Training PPO Model and saving: {ppo_filename}")
-    ppo_agent = PPO("MlpPolicy", env, seed=args.seed, verbose=1)
-    ppo_agent.learn(total_timesteps=args.ppo_train_steps)
-    ppo_agent.save(ppo_filename)
-
-    mean_reward, std_reward = evaluate_policy(
-        ppo_agent, env, n_eval_episodes=100)
-    if args.log:
-        wandb.log({"ppo_agent_mean_reward_orig": mean_reward})
-    print(f"Trained PPO agent's returns: {mean_reward} (+/-{std_reward})")
-
     # Q-learning adversary agent
 
     # Collect the stored rewards
@@ -258,74 +236,6 @@ def main(args):
         if (adversary_episode_id + 1) % 1000 == 0:
             np.save(args.log_dir + "/qtable_" +
                     str(adversary_episode_id) + ".npy", Q)
-
-    # Here starts the evaluation of the Q-learning adversary
-    # Final evaluation of the Q-learning adversary
-
-    num_eval_episodes = args.num_eval_episodes
-    episodic_returns = []
-
-    # for eval_episode in tqdm(range(num_eval_episodes)):
-
-    #     episodic_return = 0
-
-    #     # Randomly choose the initial set of environment parameters
-    #     env.modify_params(
-    #         delta_gravity=np.random.choice(action_space['delta_gravity']),
-    #         delta_masscart=np.random.choice(action_space['delta_masscart']),
-    #         delta_masspole=np.random.choice(action_space['delta_masspole']),
-    #         delta_length=np.random.choice(action_space['delta_length']),
-    #         delta_force_mag=np.random.choice(action_space['delta_force_mag']),
-    #     )
-
-    #     for _ in range(args.adversary_episode_length):
-
-    #         # Initialize all actions to 'no change'
-    #         action = {param: 0 for param in action_space.keys()}
-    #         action_index = -1
-
-    #         # Get the current environment parameters
-    #         gravity, masscart, masspole, length, force_mag = env.get_params()
-
-    #         state_index = get_observation_index([
-    #             np.digitize([gravity], observation_space['gravity'])[0] - 1,
-    #             np.digitize([masscart], observation_space['masscart'])[0] - 1,
-    #             np.digitize([masspole], observation_space['masspole'])[0] - 1,
-    #             np.digitize([length], observation_space['length'])[0] - 1,
-    #             np.digitize([force_mag], observation_space['force_mag'])[
-    #                 0] - 1,
-    #         ])
-
-    #         # Choose an action greedily
-    #         action_index = np.argmax(Q[state_index])
-
-    #         parameter_to_modify, delta = get_action_from_index(
-    #             action_space, get_action_from_index_map, action_index)
-    #         action[parameter_to_modify] = delta
-
-    #         # Execute the action
-    #         env.modify_params(**action)
-
-    #         # Reset the internal cartpole environment using newly modified physical parameters
-    #         env.reset()
-
-    #         # Get reward
-    #         internal_agent_return, _ = evaluate_policy(
-    #             ppo_agent, env, n_eval_episodes=args.num_policy_eval_episodes)
-
-    #         episodic_return += internal_agent_return
-
-    #         if args.log:
-    #             wandb.log(
-    #                 {f"Eval/{eval_episode}/internal_agent_return": internal_agent_return})
-
-    #     episodic_returns.append(episodic_return)
-    #     if args.log:
-    #         wandb.log({f"Eval/{eval_episode}/episodic_return": episodic_return})
-
-    # # Save the episodic returns
-    # np.save(args.log_dir + "/episodic_returns.npy", episodic_returns)
-
 
 if __name__ == "__main__":
 

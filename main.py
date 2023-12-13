@@ -323,7 +323,7 @@ def main(args):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(
-        description='Train a PPO agent with adversarial environment modifications.')
+        description='Train Q-learning adversary against a PPO agent.')
     parser.add_argument('--log', action='store_true',
                         help='Enable logging to files')
     parser.add_argument('--seed', type=int, default=42,
@@ -346,7 +346,7 @@ if __name__ == "__main__":
                         help='Number of episodes for Q-learning')
     parser.add_argument('--init_scale', type=float, default=0.01,
                         help='Initial scale for Q-table')
-    parser.add_argument('--ppo_train_steps', type=int, default=10000,
+    parser.add_argument('--ppo_train_steps', type=int, default=25000,
                         help='Number of training steps for PPO')
     parser.add_argument('--num_policy_eval_episodes', type=int, default=10,
                         help='Number of episodes to evaluate the PPO agent')

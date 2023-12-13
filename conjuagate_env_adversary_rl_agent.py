@@ -520,10 +520,11 @@ if __name__ == "__main__":
                         help='Directory to save models')
     parser.add_argument('--adversary_episode_length', type=int, default=1000,
                         help='Maximum number of steps in an adversary episode')
-    parser.add_argument('--ppo_train_steps', type=int, default=10000,
+    parser.add_argument('--ppo_train_steps', type=int, default=20000,
                         help='Number of training steps for PPO')
     parser.add_argument('--num_policy_eval', type=int, default=10,
                         help='Number of episodes to evaluate the PPO agent')
+ 
 
     args = parser.parse_args()
     main(args)
